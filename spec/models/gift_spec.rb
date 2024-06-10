@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Gift, type: :model do
   before(:all) do
-    friend = Friend.create!(name: 'Name', birthday: '2022-01-01')
+    Friend.create!(name: 'Name', birthday: '2022-01-01')
   end
   context 'validation tests' do
     it 'ensures name presence' do
