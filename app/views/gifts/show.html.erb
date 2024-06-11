@@ -1,10 +1,28 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @gift %>
+<h1>Your gift, <%= @gift.name %></h1>
+<h1>For your friend, <%= @gift.friend.name %></h1>
 
 <div>
-  <%= link_to "Edit this gift", edit_gift_path(@gift) %> |
-  <%= link_to "Back to gifts", gifts_path %>
-
-  <%= button_to "Destroy this gift", @gift, method: :delete %>
+  <%= link_to "Back to friends list", friends_path %>
 </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Link</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= @gift.name %></td>
+        <td><%= @gift.price %></td>
+        <td class="text-truncate max-width-600"><%= link_to @gift.link, @gift.link %></td>
+        <td><%= link_to "Edit", edit_gift_path(@gift) %></td>
+        <td><%= link_to "Destroy", @gift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  </tbody>
+</table>

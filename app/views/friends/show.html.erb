@@ -1,6 +1,45 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @friend %>
+<h1>Your good friend, <%= @friend.name %></h1>
+
+<p>
+  <strong>Birthday:</strong>
+  <%= @friend.birthday %>
+</p>
+
+<h3>Gifts</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Link</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @friend.gifts.any? %>
+      <% @friend.gifts.each do |gift| %>
+        <tr>
+          <td><%= gift.name %></td>
+          <td><%= gift.price %></td>
+          <td class="text-truncate max-width-600"><%= link_to gift.link, gift.link %></td>
+          <td><%= link_to "Edit", edit_gift_path(gift) %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td></td>
+        <td>This friend has no gifts yet.</td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div>
+  <%= link_to "New gift", new_gift_path(friend_id: @friend.id) %>
+</div>
 
 <div>
   <%= link_to "Edit this friend", edit_friend_path(@friend) %> |

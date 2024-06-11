@@ -23,6 +23,8 @@ class GiftsController < ApplicationController
   # POST /gifts or /gifts.json
   def create
     @gift = Gift.new(gift_params)
+    @gift.friend_id = params["gift"]["friend_id"]
+    @gift.user_id = current_user.id
 
     respond_to do |format|
       if @gift.save
@@ -50,10 +52,11 @@ class GiftsController < ApplicationController
 
   # DELETE /gifts/1 or /gifts/1.json
   def destroy
+    byebug
     @gift.destroy
 
     respond_to do |format|
-      format.html { redirect_to gifts_url, notice: "Gift was successfully destroyed." }
+      format.html { redirect_to friend_url(@gift.friend_id), notice: "Gift was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -66,6 +69,6 @@ class GiftsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def gift_params
-      params.fetch(:gift, {})
+      params.require(:gift).permit(:name, :price, :link, :friend_id)
     end
 end

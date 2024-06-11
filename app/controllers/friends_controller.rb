@@ -4,7 +4,9 @@ class FriendsController < ApplicationController
 
   # GET /friends or /friends.json
   def index
-    @friends = Friend.all
+    # only show friends that belong to the current user
+    @user = current_user
+    @friends = Friend.where(user_id: current_user.id)
   end
 
   # GET /friends/1 or /friends/1.json
@@ -51,6 +53,8 @@ class FriendsController < ApplicationController
 
   # DELETE /friends/1 or /friends/1.json
   def destroy
+    # destroy gifts associated with the friend
+    @friend.gifts.destroy_all
     @friend.destroy
 
     respond_to do |format|

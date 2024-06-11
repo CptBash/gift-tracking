@@ -26,6 +26,8 @@
     <%= form.text_field :link %>
   </div>
 
+  <%= form.hidden_field :friend_id, value: params[:friend_id] %>
+
   <div>
     <%= form.submit %>
   </div>
