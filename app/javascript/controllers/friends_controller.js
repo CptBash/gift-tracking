@@ -4,7 +4,6 @@ export default class FriendsController extends Controller {
   static targets = ["gifts", "addGift"];
 
   connect() {
-    console.log("Hello, Stimulus!", this.giftsTarget);
     this.giftCounter = this.giftsTarget.querySelectorAll('.gift-fields').length;
   }
 

@@ -9,5 +9,5 @@ class User < ApplicationRecord
 
   # associations
   has_many :friends
-  has_many :gifts
+  has_many :gifts, through: :friends
 end

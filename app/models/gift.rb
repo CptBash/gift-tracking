@@ -2,7 +2,8 @@
 
 # Gift model
 class Gift < ApplicationRecord
-  belongs_to :user
-  belongs_to :friend
+  belongs_to :friend, inverse_of: :gifts
+  validates :friend, presence: true
+  validates :user, presence: true
   validates :name, presence: true
 end
