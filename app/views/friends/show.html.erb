@@ -22,7 +22,7 @@
       <% @friend.gifts.each do |gift| %>
         <tr>
           <td><%= gift.name %></td>
-          <td><%= gift.price %></td>
+          <td>$<%= gift.price %></td>
           <td class="text-truncate max-width-600"><%= link_to gift.link, gift.link %></td>
           <td><%= link_to "Edit", edit_gift_path(gift) %></td>
         </tr>
