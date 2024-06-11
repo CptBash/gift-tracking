@@ -1,105 +1,63 @@
-<%= form_with(model: friend) do |form| %>
-  <% if friend.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+<%# TODO: remove inline styles%>
+<div data-controller="friends">
+  <%= form_with(model: friend, data: { controller: "friends" }) do |form| %>
+    <% if @friend.errors.any? %>
+      <div class="alert alert-danger">
+        <h2><%= pluralize(@friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
 
-      <ul>
-        <% friend.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <div class="d-inline-block col-5">
-      <%= form.label :name, required: true %><span style="color: red">*</span>
-      <%= form.text_field :name, class: "form-control" %>
-    </div>
-
-    <div class="d-inline-block col-5" style="padding-left: 15px;">
-      <%= form.label :birthday %>
-      <%= form.date_field :birthday, class: "form-control" %>
-    </div>
-  </div>
-
-  <h1 style="text-align: left;">Gifts</h1>
-
-  <div id="gifts">
-    <%= form.fields_for :gifts do |gift_field| %>
-      <div class="gift-fields">
-        <div class="form-group d-inline-block col-3">
-          <%= gift_field.label :name, "Description" %><span style="color: red">*</span>
-          <%= gift_field.text_field :name, class: "form-control" %>
-        </div>
-
-        <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
-          <%= gift_field.label :price %>
-          <%= gift_field.number_field :price, class: "form-control" %>
-        </div>
-
-        <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
-          <%= gift_field.label :link %>
-          <%= gift_field.text_field :link, class: "form-control" %>
-        </div>
-
-        <div class="col-1 d-inline-block" style="text-align: center;">
-          <%= button_to "X", "#", class: "btn btn-danger remove-gift", style: "width: 60px;" %>
-        </div>
+        <ul>
+          <% @friend.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
-  </div>
 
-  <div style="padding-top: 15px;">
-    <%= button_to "Add Gift", "#", class: "btn btn-primary add-gift" %>
-  </div>
+    <div class="form-group">
+      <div class="d-inline-block col-5">
+        <%= form.label :name, required: true %><span style="color: red">*</span>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
 
-  <div class="form-group" style="padding-top: 45px;">
-    <%= form.submit "Save", class: "btn btn-primary" %>
-  </div>
-<% end %>
+      <div class="d-inline-block col-5" style="padding-left: 15px;">
+        <%= form.label :birthday %>
+        <%= form.date_field :birthday, class: "form-control" %>
+      </div>
+    </div>
 
-<%# TODO: fix data controller and do this stuff there, also remove inline styles%>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const giftsContainer = document.getElementById("gifts");
-    const addGiftLink = document.querySelector(".add-gift");
+    <h1 style="text-align: left;">Gifts</h1>
 
-    addGiftLink.addEventListener("click", function(event) {
-      event.preventDefault();
+    <div id="gifts" data-friends-target="gifts">
+      <%= form.fields_for :gifts do |gift_field| %>
+        <div class="gift-fields">
+          <div class="form-group d-inline-block col-3">
+            <%= gift_field.label :name, "Description" %><span style="color: red">*</span>
+            <%= gift_field.text_field :name, class: "form-control" %>
+          </div>
 
-      const giftFields = document.createElement("div");
-      giftFields.classList.add("gift-fields");
+          <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
+            <%= gift_field.label :price %>
+            <%= gift_field.number_field :price, class: "form-control" %>
+          </div>
 
-      giftFields.innerHTML = `
-        <div class="form-group d-inline-block col-3">
-          <label for="friend_gifts_attributes_newGiftName">Description<span style="color: red">*</span></label>
-          <input type="text" name="friend[gifts_attributes][newGiftName]" class="form-control">
+          <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
+            <%= gift_field.label :link %>
+            <%= gift_field.text_field :link, class: "form-control" %>
+          </div>
+
+          <div class="col-1 d-inline-block" style="text-align: center;">
+            <%= button_to "X", "#", class: "btn btn-danger remove-gift", style: "width: 60px;" %>
+          </div>
         </div>
+      <% end %>
+    </div>
 
-        <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
-          <label for="friend_gifts_attributes_newGiftPrice">Price</label>
-          <input type="number" name="friend[gifts_attributes][newGiftPrice]" class="form-control">
-        </div>
+    <div style="padding-top: 15px;">
+      <%= button_tag "Add Gift", type: "button", class: "btn btn-primary add-gift", data: { action: "click->friends#addGift" } %>
+    </div>
 
-        <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
-          <label for="friend_gifts_attributes_newGiftLink">Link</label>
-          <input type="text" name="friend[gifts_attributes][newGiftLink]" class="form-control">
-        </div>
-
-        <div class="col-1 d-inline-block" style="text-align: center;">
-          <button type="button" class="btn btn-danger remove-gift d-inline-block" style="width: 55px;">X</button>
-        </div>
-      `;
-
-      giftsContainer.appendChild(giftFields);
-    });
-
-    giftsContainer.addEventListener("click", function(event) {
-      if (event.target.classList.contains("remove-gift")) {
-        event.preventDefault();
-        event.target.closest(".gift-fields").remove();
-      }
-    });
-  });
-</script>
+    <div class="form-group" style="padding-top: 45px;">
+      <%= form.submit "Save", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

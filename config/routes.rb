@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
 
@@ -5,7 +7,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
-  
+
   # define routes for friends
   resources :friends do
     # define routes for gifts nested under friends
@@ -16,5 +18,5 @@ Rails.application.routes.draw do
   delete 'gifts/:id', to: 'gifts#destroy', as: 'delete_gift'
 
   # root route
-  root to: "friends#index"
+  root to: 'friends#index'
 end
