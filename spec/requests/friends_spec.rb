@@ -18,12 +18,14 @@ RSpec.describe '/friends', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Friend. As you add validations to Friend, be sure to
   # adjust the attributes here as well.
+  let(:user) { User.create(email: 'chuck_testa@test.com', password: 'password') }
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    { name: 'Chuck Testa', birthday: '2022-01-01', user_id: user.id}
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    { name: 1, birthday: 'fooBAR' }
   end
 
   describe 'GET /index' do

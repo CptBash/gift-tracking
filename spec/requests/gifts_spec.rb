@@ -18,12 +18,14 @@ RSpec.describe '/gifts', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Gift. As you add validations to Gift, be sure to
   # adjust the attributes here as well.
+  let(:friend) { Friend.create(name: 'Chuck Testa', birthday: '2022-01-01') }
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    { name: 'Test Gift', friend_id: friend.id }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    { attribute1: 'invalid_value1', attribute2: 'invalid_value2' }
   end
 
   describe 'GET /index' do
