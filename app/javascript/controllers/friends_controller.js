@@ -5,11 +5,14 @@ export default class FriendsController extends Controller {
 
   connect() {
     this.giftCounter = this.giftsTarget.querySelectorAll('.gift-fields').length;
+    this.userId = this.data.get("userId")
   }
 
   addGift(event) {
     event.preventDefault();
 
+    // Get the current user id
+    const current_user_id = this.userId;
     const giftFields = document.createElement("div");
     giftFields.classList.add("gift-fields");
 

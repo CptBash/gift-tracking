@@ -29,9 +29,6 @@ class FriendsController < ApplicationController
     @friend = Friend.new(friend_params)
     @friend.user_id = current_user.id
 
-    # update user_id for gifts
-    @friend.gifts.each { |gift| gift.user_id = current_user.id }
-
     respond_to do |format|
       if @friend.save
         format.html { redirect_to friends_url, notice: 'Friend was successfully created.' }
@@ -45,7 +42,14 @@ class FriendsController < ApplicationController
   # rubocop:enable Metrics/MethodLength Metrics/AbcSize
 
   # PATCH/PUT /friends/1 or /friends/1.json
-  def update
+  def update # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    # update friends gift list to match params, remove any gifts that are no longer in the list
+    @friend.gifts.each do |gift|
+      unless friend_params[:gifts_attributes].values.any? { |v| v[:name] == gift.name && v[:link] == gift.link }
+        gift.destroy
+      end
+    end
+
     respond_to do |format|
       if @friend.update(friend_params)
         format.html { redirect_to friend_url(@friend), notice: 'Friend was successfully updated.' }

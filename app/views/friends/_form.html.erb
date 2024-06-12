@@ -1,5 +1,5 @@
 <%# TODO: remove inline styles%>
-<div data-controller="friends">
+<div data-controller="friends" data-friends-user-id="<%= current_user.id %>">
   <%= form_with(model: friend, data: { controller: "friends" }) do |form| %>
     <% if @friend.errors.any? %>
       <div class="alert alert-danger">

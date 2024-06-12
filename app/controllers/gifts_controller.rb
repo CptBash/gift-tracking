@@ -26,7 +26,6 @@ class GiftsController < ApplicationController
   def create # rubocop:disable Metrics/MethodLength
     @gift = Gift.new(gift_params)
     @gift.friend_id = params['gift']['friend_id']
-    @gift.user_id = current_user.id
 
     respond_to do |format|
       if @gift.save

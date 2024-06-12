@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_10_181059) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_10_181046) do
   create_table "friends", force: :cascade do |t|
     t.string "name"
     t.date "birthday"
@@ -27,9 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_10_181059) do
     t.integer "friend_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
     t.index ["friend_id"], name: "index_gifts_on_friend_id"
-    t.index ["user_id"], name: "index_gifts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,5 +44,4 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_10_181059) do
 
   add_foreign_key "friends", "users"
   add_foreign_key "gifts", "friends"
-  add_foreign_key "gifts", "users"
 end

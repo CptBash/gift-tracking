@@ -15,10 +15,14 @@
         <tr>
           <td><%= friend.name %></td>
           <td><%= friend.birthday %></td>
-          <td><%= button_to 'Show', friend, method: :get, class: 'btn btn-primary' %></td>
-          <td><%= button_to 'Edit', edit_friend_path(friend), method: :get, class: 'btn btn-secondary' %></td>
-          <td><%= button_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
-        </tr>
+            <td>
+            <div class="btn-group">
+              <%= button_to 'Show', friend, method: :get, class: 'btn btn-primary' %>
+              <%= button_to 'Edit', edit_friend_path(friend), method: :get, class: 'btn btn-secondary', style: "margin-left: 15px;" %>
+              <%= button_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', style: "margin-left: 15px;" %>
+            </div>
+            </td>
+          </td>
         </tr>
       <% end %>
     </div>
@@ -31,13 +35,15 @@
 <h1>User Actions</h1>
 
 <% if @user.present? %>
-  <%= link_to "Edit User", edit_user_registration_path, class: 'btn btn-primary' %>
-  <br/>
-  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+  <div class="btn-group">
+    <%= link_to "Edit User", edit_user_registration_path, class: 'btn btn-primary' %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn btn-danger', style: "margin-left: 15px;" %>
+  </div>
   <br/>
 <% else %>
-  <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
-  <br/>
-  <%= link_to "Sign In", new_user_session_path, class: 'btn btn-secondary' %>
+  <div class="btn-group">
+    <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
+    <%= link_to "Sign In", new_user_session_path, class: 'btn btn-secondary', style: "margin-left: 15px;" %>
+  </div>
   <br/>
 <% end %>
