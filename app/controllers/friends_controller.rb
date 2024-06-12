@@ -29,9 +29,12 @@ class FriendsController < ApplicationController
     @friend = Friend.new(friend_params)
     @friend.user_id = current_user.id
 
+    # update user_id for gifts
+    @friend.gifts.each { |gift| gift.user_id = current_user.id }
+
     respond_to do |format|
       if @friend.save
-        format.html { redirect_to friend_url(@friend), notice: 'Friend was successfully created.' }
+        format.html { redirect_to friends_url, notice: 'Friend was successfully created.' }
         format.json { render :show, status: :created, location: @friend }
       else
         format.html { render :new, status: :unprocessable_entity }

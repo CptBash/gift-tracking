@@ -15,9 +15,10 @@
         <tr>
           <td><%= friend.name %></td>
           <td><%= friend.birthday %></td>
-          <td><%= link_to 'Show', friend %></td>
-          <td><%= link_to 'Edit', edit_friend_path(friend) %></td>
-          <td><%= link_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= button_to 'Show', friend, method: :get, class: 'btn btn-primary' %></td>
+          <td><%= button_to 'Edit', edit_friend_path(friend), method: :get, class: 'btn btn-secondary' %></td>
+          <td><%= button_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        </tr>
         </tr>
       <% end %>
     </div>
@@ -30,13 +31,13 @@
 <h1>User Actions</h1>
 
 <% if @user.present? %>
-  <%= link_to "Edit User", edit_user_registration_path %>
+  <%= link_to "Edit User", edit_user_registration_path, class: 'btn btn-primary' %>
   <br/>
-  <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
   <br/>
 <% else %>
-  <%= link_to "Sign Up", new_user_registration_path %>
+  <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
   <br/>
-  <%= link_to "Sign In", new_user_session_path %>
+  <%= link_to "Sign In", new_user_session_path, class: 'btn btn-secondary' %>
   <br/>
 <% end %>

@@ -24,7 +24,7 @@
           <td><%= gift.name %></td>
           <td>$<%= gift.price %></td>
           <td class="text-truncate max-width-600"><%= link_to gift.link, gift.link %></td>
-          <td><%= link_to "Edit", edit_gift_path(gift) %></td>
+          <td><%= link_to "Edit", edit_friend_gift_path(gift) %></td>
         </tr>
       <% end %>
     <% else %>
@@ -37,13 +37,10 @@
   </tbody>
 </table>
 
-<div>
-  <%= link_to "New gift", new_gift_path(friend_id: @friend.id) %>
-</div>
 
-<div>
-  <%= link_to "Edit this friend", edit_friend_path(@friend) %> |
-  <%= link_to "Back to friends", friends_path %>
 
-  <%= button_to "Destroy this friend", @friend, method: :delete %>
+<div class="btn-group">
+  <%= button_to "Edit this friend", edit_friend_path(@friend), class: "btn btn-primary" %>
+  <%= button_to "Back to friends", friends_path, class: "btn btn-secondary", style: "margin-left: 15px;" %>
+  <%= button_to "Destroy this friend", @friend, method: :delete, class: "btn btn-danger", style: "margin-left: 15px;" %>
 </div>

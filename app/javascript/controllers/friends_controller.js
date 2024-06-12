@@ -21,7 +21,7 @@ export default class FriendsController extends Controller {
 
       <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
         <label for="friend_gifts_attributes_${this.giftCounter}_price">Price</label>
-        <input type="number" name="friend[gifts_attributes][${this.giftCounter}][price]" class="form-control">
+        <input type="number" name="friend[gifts_attributes][${this.giftCounter}][price]" step="0.01" class="form-control">
       </div>
 
       <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
@@ -41,6 +41,13 @@ export default class FriendsController extends Controller {
   removeGift(event) {
     event.preventDefault();
     event.target.closest(".gift-fields").remove();
+  }
+
+  removeExistingGift(event) {
+    event.preventDefault();
+    const giftFields = event.target.closest(".gift-fields");
+    giftFields.querySelector("input[name*='_destroy']").value = 1;
+    giftFields.style.display = "none";
   }
 
 }

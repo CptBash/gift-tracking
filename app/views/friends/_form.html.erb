@@ -37,7 +37,7 @@
 
           <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
             <%= gift_field.label :price %>
-            <%= gift_field.number_field :price, class: "form-control" %>
+            <%= gift_field.number_field :price, class: "form-control", step: "0.01" %>
           </div>
 
           <div class="form-group d-inline-block col-3" style="padding-left: 5px;">
@@ -46,7 +46,7 @@
           </div>
 
           <div class="col-1 d-inline-block" style="text-align: center;">
-            <%= button_to "X", "#", class: "btn btn-danger remove-gift", style: "width: 60px;" %>
+            <button type="button" class="btn btn-danger remove-gift" style="width: 60px;" data-action="click->friends#removeGift">X</button>
           </div>
         </div>
       <% end %>
