@@ -8,7 +8,7 @@
 
 * Technical Stuff:
 
-* Ruby version
+* Ruby/Rails version
     - ruby 3.2.2
     - rails 7.0.8.4
 
