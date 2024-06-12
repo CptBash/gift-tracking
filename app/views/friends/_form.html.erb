@@ -21,7 +21,7 @@
 
       <div class="d-inline-block col-5" style="padding-left: 15px;">
         <%= form.label :birthday %>
-        <%= form.date_field :birthday, class: "form-control" %>
+        <%= form.date_field :birthday, class: "form-control", max: Date.today %>
       </div>
     </div>
 

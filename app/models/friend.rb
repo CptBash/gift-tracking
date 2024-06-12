@@ -7,4 +7,9 @@ class Friend < ApplicationRecord
   accepts_nested_attributes_for :gifts
 
   validates :name, :birthday, presence: true
+  validate :future_birthday
+
+  def future_birthday
+    errors.add(:birthday, "can't be in the future") if birthday.present? && birthday > Date.today
+  end
 end
